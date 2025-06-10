@@ -4,7 +4,7 @@
 
 This application can be viewed online as a live demo deployed via GitHub Pages.
 
-**Demo URL:** [Link to Demo Page - Will be available after first deployment] *(Replace this with the actual URL once deployed)*
+**Demo URL:** [https://hax0rgurl.github.io/Fakechatapp/](https://hax0rgurl.github.io/Fakechatapp/)
 
 ### Instructions for Repository Owner to Deploy and View Demo:
 
@@ -29,4 +29,4 @@ This application can be viewed online as a live demo deployed via GitHub Pages.
 5.  **Access Demo and Update README:**
     *   Once deployed, the live demo will be available at a URL similar to: `https://<your-username>.github.io/<repository-name>/`
     *   You can find the exact URL in your repository's "Settings" > "Pages" section.
-    *   **Important:** Edit this `README.md` file and replace the placeholder "[Link to Demo Page - Will be available after first deployment]" with the actual live URL.
+    *   **Important:** The live URL has now been updated in this README.
