@@ -17,16 +17,33 @@ jobs:
 
       - name: Set base href
         run: |
+          echo "Full GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
           REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2)
+          echo "Derived REPO_NAME: $REPO_NAME"
           BASE_HREF="/$REPO_NAME/"
-          # If deploying to username.github.io (root for the user/org), BASE_HREF should be "/"
-          # This simple check assumes the repo name is not the same as the username/org name,
-          # which is a common case for project pages.
-          # A more robust solution might be needed for user/org pages deployed from a repo with the same name.
           if [ "$REPO_NAME" = "$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f1).github.io" ]; then
             BASE_HREF="/"
           fi
+          echo "Determined BASE_HREF: $BASE_HREF"
+          echo "Target file: ifaketextmessage APP/index.html"
+
+          echo "Content before sed:"
+          grep '<base href_placeholder />' "ifaketextmessage APP/index.html" || echo "Placeholder NOT found before sed."
+
           sed -i "s|<base href_placeholder />|<base href=\"$BASE_HREF\" />|" "ifaketextmessage APP/index.html"
+
+          echo "Content after sed:"
+          if grep '<base href_placeholder />' "ifaketextmessage APP/index.html"; then
+            echo "ERROR: Placeholder '<base href_placeholder />' still exists in 'ifaketextmessage APP/index.html' after sed."
+            # Optionally, print more of the file for debugging
+            echo " आसपास का कॉन्टेंट:"
+            grep -C 5 '<base href_placeholder />' "ifaketextmessage APP/index.html"
+            exit 1
+          else
+            echo "Placeholder successfully replaced with <base href="$BASE_HREF" />"
+            # Optionally, show the new base tag
+            grep '<base href=' "ifaketextmessage APP/index.html"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
